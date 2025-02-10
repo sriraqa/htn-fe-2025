@@ -1,9 +1,9 @@
-import { TEndpointResponse } from "@/types/events";
+import { TEvent } from "@/types/events";
 import { useQuery } from "@tanstack/react-query";
 
 const EVENTS_QUERY_KEY = ["events"];
 
-const getAllEvents = async (): Promise<TEndpointResponse> => {
+const getAllEvents = async (): Promise<TEvent[]> => {
   const res = await fetch("https://api.hackthenorth.com/v3/events", {
     method: "GET",
   });

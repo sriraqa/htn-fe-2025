@@ -1,4 +1,4 @@
-import { TEndpointResponse } from "@/types/events";
+import { TEvent } from "@/types/events";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchEventQueryKey = (id: string) => {
@@ -6,7 +6,7 @@ const fetchEventQueryKey = (id: string) => {
   return queryKey;
 }
 
-const getAllEvents = async (id: string): Promise<TEndpointResponse> => {
+const getAllEvent = async (id: string): Promise<TEvent> => {
   const res = await fetch(`https://api.hackthenorth.com/v3/events/${id}`, {
     method: "GET",
   });
@@ -18,8 +18,8 @@ const getAllEvents = async (id: string): Promise<TEndpointResponse> => {
   return await res.json();
 }
 
-export const useEvents = (id: string) =>
+export const useEvent = (id: string) =>
   useQuery({
     queryKey: fetchEventQueryKey(id),
-    queryFn: () => getAllEvents(id),
+    queryFn: () => getAllEvent(id),
   });
