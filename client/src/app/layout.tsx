@@ -3,6 +3,7 @@ import { Sen } from "next/font/google";
 import "../styles/globals.css";
 import { UserProvider } from "@/contexts/userProvider";
 import Navbar from "@/components/Navbar";
+import { QueryClientContextProvider } from "@/contexts/QueryClientContextProvider";
 
 const sen = Sen({
   variable: "--font-sen",
@@ -20,15 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <UserProvider>
-      <html lang="en">
-        <body
-          className={`${sen.variable} antialiased font-[family-name:var(--font-sen)] flex flex-col justify-center items-center`}
-        >
-          <Navbar />
-          <div className="max-w-3xl p-6 w-full h-full">{children}</div>
-        </body>
-      </html>
-    </UserProvider>
+    <QueryClientContextProvider>
+      <UserProvider>
+        <html lang="en">
+          <body
+            className={`${sen.variable} antialiased font-[family-name:var(--font-sen)] flex flex-col justify-center items-center`}
+          >
+            <Navbar />
+            <div className="max-w-3xl py-6 px-6 md:px-0 w-full h-full">
+              {children}
+            </div>
+          </body>
+        </html>
+      </UserProvider>
+    </QueryClientContextProvider>
   );
 }

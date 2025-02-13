@@ -12,7 +12,7 @@ const getAllEvents = async (): Promise<TEvent[]> => {
     console.error("Could not get events", res.statusText);
   }
 
-  return await res.json();
+  return await res.json() as TEvent[];
 }
 
 export const useEvents = () =>

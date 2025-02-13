@@ -15,7 +15,7 @@ const getAllEvent = async (id: string): Promise<TEvent> => {
     console.error(`Could not get event with ID: ${id}`, res.statusText);
   }
 
-  return await res.json();
+  return await res.json() as TEvent;
 }
 
 export const useEvent = (id: string) =>
