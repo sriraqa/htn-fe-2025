@@ -1,11 +1,11 @@
 import { TEvent, TEventType } from "@/types/events";
 import Image, { StaticImageData } from "next/image";
-import { convertMSToLocalDate } from "@/utils/utils";
+import { convertMSToLocalDate, convertMSToLocalTime } from "@/utils/utils";
+import { Plus } from "lucide-react";
 
 import Workshop from "../../public/workshop.png";
 import Activity from "../../public/activity.png";
 import TechTalk from "../../public/tech-talk.png";
-import { Plus } from "lucide-react";
 
 const EVENT_COLORS: Record<TEventType, string> = {
   workshop: "bg-hgLightPurple text-hgDarkPurple",
@@ -19,15 +19,22 @@ const EVENT_IMAGES: Record<TEventType, StaticImageData> = {
   tech_talk: TechTalk,
 };
 
-const EventCard = ({ event }: { event: TEvent }) => {
-  const startTime = convertMSToLocalDate(event.start_time);
-  const endTime = convertMSToLocalDate(event.end_time);
+const EventCard = ({
+  event,
+  onClick,
+}: {
+  event: TEvent;
+  onClick: () => void;
+}) => {
+  const startTime = convertMSToLocalTime(event.start_time);
+  const endTime = convertMSToLocalTime(event.end_time);
 
   return (
     <button
       className={`w-full p-4 flex flex-col justify-between items-center rounded-2xl aspect-square ${
         EVENT_COLORS[event.event_type]
       } text-base hover:opacity-70 transition-opacity`}
+      onClick={onClick}
     >
       <div className="w-full flex flex-col gap-1 sm:gap-0">
         <h2 className="w-full capitalize text-[16px] sm:text-[14px] text-start">
@@ -42,9 +49,9 @@ const EventCard = ({ event }: { event: TEvent }) => {
       </div>
       <div className="flex flex-row justify-between items-end w-full">
         <h2 className="text-[16px] sm:text-[14px]">
-          {startTime.toLocaleTimeString()} - {endTime.toLocaleTimeString()}
+          {startTime} - {endTime}
         </h2>
-        <div className="flex justify-center items-center h-10 w-10 rounded-full bg-white">
+        <div className="flex justify-center items-center h-8 w-8 rounded-full bg-white">
           <Plus />
         </div>
       </div>
