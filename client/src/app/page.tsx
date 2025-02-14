@@ -82,7 +82,7 @@ export default function Events() {
                       return (
                         <div key={event.id}>
                           <EventCard
-                            event={event}
+                            eventId={event.id}
                             onClick={() => handleOpenEvent(event.id)}
                           />
                         </div>

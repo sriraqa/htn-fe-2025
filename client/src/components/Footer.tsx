@@ -34,7 +34,7 @@ const Footer = () => {
             </Link>
             <Link
               className="p-2 hover:opacity-60 text-base"
-              href="/"
+              href="https://held-abacus-753.notion.site/Writeup-Sarah-Qiao-19acf3c2aee5805ba537ed1c07f49b1b"
               target="_blank"
             >
               Write Up

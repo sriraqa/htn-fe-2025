@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 import Workshop from "../../public/workshop.png";
 import Activity from "../../public/activity.png";
 import TechTalk from "../../public/tech-talk.png";
+import { useEvent } from "@/hooks/useEvent";
 
 const EVENT_COLORS: Record<TEventType, string> = {
   workshop: "bg-hgLightPurple text-hgDarkPurple",
@@ -20,12 +21,15 @@ const EVENT_IMAGES: Record<TEventType, StaticImageData> = {
 };
 
 const EventCard = ({
-  event,
+  eventId,
   onClick,
 }: {
-  event: TEvent;
+  eventId: number;
   onClick: () => void;
 }) => {
+  const { isLoading, data: event } = useEvent(eventId);
+  if (!event) return;
+
   const startTime = convertMSToLocalTime(event.start_time);
   const endTime = convertMSToLocalTime(event.end_time);
 
@@ -48,7 +52,7 @@ const EventCard = ({
         <Image src={EVENT_IMAGES[event.event_type]} alt="Image" />
       </div>
       <div className="flex flex-row justify-between items-end w-full">
-        <h2 className="text-[16px] sm:text-[14px]">
+        <h2 className="text-[16px] sm:text-[14px] text-start">
           {startTime} - {endTime}
         </h2>
         <div className="flex justify-center items-center h-8 w-8 rounded-full bg-white">

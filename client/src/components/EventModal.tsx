@@ -12,6 +12,7 @@ import { convertMSToLocalDate, convertMSToLocalTime } from "@/utils/utils";
 import { useContext, useState } from "react";
 import Link from "next/link";
 import { UserContext } from "@/contexts/userProvider";
+import SuggestedCard from "./SuggestedCard";
 
 const EVENT_COLORS: Record<TEventType, string> = {
   workshop: "bg-hgLightPurple text-hgDarkPurple",
@@ -111,68 +112,85 @@ const EventModal = ({
             <BarLoader role="status" />
           </div>
         ) : event ? (
-          <div className="flex flex-col sm:flex-row gap-6 px-4 sm:px-8">
-            <div className="w-full sm:w-1/3 flex flex-row items-start justify-between sm:flex-col sm:justify-start gap-4">
-              <div
-                className={`p-4 w-1/3 flex flex-col sm:w-full justify-center items-center rounded-2xl aspect-square ${
-                  EVENT_COLORS[event.event_type]
-                }`}
-              >
-                <Image src={EVENT_IMAGES[event.event_type]} alt="Image" />
-              </div>
-              <Link
-                href={`${event.public_url}`}
-                target="_blank"
-                className="underline flex flex-row gap-1 items-center"
-              >
-                <p>View event</p>
-                <ArrowUpRight size={16} />
-              </Link>
-              {user.authenticated && event.private_url && (
+          <div className="flex flex-col gap-6 px-4 sm:px-8">
+            <div className="flex flex-col sm:flex-row gap-6">
+              <div className="w-full sm:w-1/3 flex flex-row items-start justify-between sm:flex-col sm:justify-start gap-4">
+                <div
+                  className={`p-4 w-1/3 flex flex-col sm:w-full justify-center items-center rounded-2xl aspect-square ${
+                    EVENT_COLORS[event.event_type]
+                  }`}
+                >
+                  <Image src={EVENT_IMAGES[event.event_type]} alt="Image" />
+                </div>
                 <Link
-                  href={`${event.private_url}`}
+                  href={`${event.public_url}`}
                   target="_blank"
                   className="underline flex flex-row gap-1 items-center"
                 >
-                  <p>Join event</p>
+                  <p>View event</p>
                   <ArrowUpRight size={16} />
                 </Link>
-              )}
-            </div>
-
-            <div className="w-full flex flex-col gap-6">
-              <div className="w-full flex flex-col gap-0">
-                <h2 className="w-full capitalize text-[16px] text-start">
-                  {event.event_type.replaceAll("_", " ")}
-                </h2>
-                <h1 className="w-full font-semibold text-[24px] text-start">
-                  {event.name}
-                </h1>
-                <h2 className="w-full text-[16px] text-start">
-                  {startDate} at {startTime} -{" "}
-                  {endDate === startDate ? "" : endDate} {endTime}
-                </h2>
+                {user.authenticated && event.private_url && (
+                  <Link
+                    href={`${event.private_url}`}
+                    target="_blank"
+                    className="underline flex flex-row gap-1 items-center"
+                  >
+                    <p>Join event</p>
+                    <ArrowUpRight size={16} />
+                  </Link>
+                )}
               </div>
-              {event.description && (
-                <div className="w-full flex flex-col gap-1">
-                  <h2 className="w-full capitalize text-[20px] font-semibold text-start">
-                    About
+
+              <div className="w-full flex flex-col gap-6">
+                <div className="w-full flex flex-col gap-0">
+                  <h2 className="w-full capitalize text-[16px] text-start">
+                    {event.event_type.replaceAll("_", " ")}
                   </h2>
-                  <p>{event.description}</p>
+                  <h1 className="w-full font-semibold text-[24px] text-start">
+                    {event.name}
+                  </h1>
+                  <h2 className="w-full text-[16px] text-start">
+                    {startDate} at {startTime} -{" "}
+                    {endDate === startDate ? "" : endDate} {endTime}
+                  </h2>
                 </div>
-              )}
-              <div className="w-full flex flex-col gap-1 pb-4">
-                <h2 className="w-full capitalize text-[20px] font-semibold text-start">
-                  Speakers
-                </h2>
-                <p>
-                  {event.speakers.map((speaker, index) => {
-                    return (
-                      speaker.name +
-                      `${index === event.speakers.length - 1 ? "" : ", "}`
-                    );
-                  })}
-                </p>
+                {event.description && (
+                  <div className="w-full flex flex-col gap-1">
+                    <h2 className="w-full capitalize text-[20px] font-semibold text-start">
+                      About
+                    </h2>
+                    <p>{event.description}</p>
+                  </div>
+                )}
+                <div className="w-full flex flex-col gap-1 pb-4">
+                  <h2 className="w-full capitalize text-[20px] font-semibold text-start">
+                    Speakers
+                  </h2>
+                  <p>
+                    {event.speakers.map((speaker, index) => {
+                      return (
+                        speaker.name +
+                        `${index === event.speakers.length - 1 ? "" : ", "}`
+                      );
+                    })}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex flex-col gap-1 pb-4">
+              <h2 className="w-full capitalize text-[20px] font-semibold text-start">
+                Related Events
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {event.related_events.length > 0 &&
+                  event.related_events.map((relatedId) => (
+                    <SuggestedCard
+                      eventId={relatedId}
+                      onClick={() => setCurrentEventId(relatedId)}
+                      key={relatedId}
+                    />
+                  ))}
               </div>
             </div>
           </div>
