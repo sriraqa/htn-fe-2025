@@ -10,6 +10,7 @@ import { AnimatePresence } from "motion/react";
 import EventModal from "@/components/EventModal";
 import { TEvent } from "@/types/events";
 import { convertMSToLocalDate } from "@/utils/utils";
+import Footer from "@/components/Footer";
 
 export default function Events() {
   const user = useContext(UserContext);
@@ -69,7 +70,7 @@ export default function Events() {
         {showModal && <InfoModal onClose={() => setShowModal(false)} />}
 
         {groupedEvents ? (
-          <div className="flex flex-col gap-6 pb-10">
+          <div className="flex flex-col gap-6 pb-14">
             {Object.keys(groupedEvents).map((time) => {
               return (
                 <div className="flex flex-col gap-3" key={time}>
@@ -100,6 +101,7 @@ export default function Events() {
           <div>No events to show</div>
         )}
       </main>
+      {selectedEventId === null && <Footer />}
     </div>
   );
 }

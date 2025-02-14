@@ -4,7 +4,6 @@ import "../styles/globals.css";
 import { UserProvider } from "@/contexts/userProvider";
 import Navbar from "@/components/Navbar";
 import { QueryClientContextProvider } from "@/contexts/QueryClientContextProvider";
-import Footer from "@/components/Footer";
 
 const sen = Sen({
   variable: "--font-sen",
@@ -32,7 +31,6 @@ export default function RootLayout({
             <div className="max-w-3xl pt-6 px-6 md:px-0 w-full h-full">
               {children}
             </div>
-            <Footer />
           </body>
         </html>
       </UserProvider>

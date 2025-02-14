@@ -1,6 +1,6 @@
 import { TEvent, TEventType } from "@/types/events";
 import Image, { StaticImageData } from "next/image";
-import { convertMSToLocalDate, convertMSToLocalTime } from "@/utils/utils";
+import { convertMSToLocalTime } from "@/utils/utils";
 import { Plus } from "lucide-react";
 
 import Workshop from "../../public/workshop.png";

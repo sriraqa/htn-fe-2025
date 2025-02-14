@@ -9,8 +9,6 @@ export const convertMSToLocalTime = (date: number) => {
 
 export const convertMSToLocalDate = (date: number) => {
   const fullDate = new Date(date);
-  const today = new Date();
-
   return getDayName(fullDate) + ", " + getMonthName(fullDate) + " " + fullDate.getDate();
 }
 

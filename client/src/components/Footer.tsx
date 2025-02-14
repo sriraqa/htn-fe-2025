@@ -7,6 +7,7 @@ import Logo from "../../public/logo.png";
 const Footer = () => {
   return (
     <footer className="flex flex-col gap-4 items-start justify-start w-full p-4 max-w-6xl">
+      <hr className="text-hgGray bg-hgGray w-full" />
       <div className="flex flex-row justify-between items-start gap-4 w-full ">
         <Link className="flex flex-row items-center gap-2 p-2 text-lg" href="/">
           <div className="h-8 w-8 flex items-center">
@@ -48,7 +49,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <hr className="text-hgGray bg-hgGray w-full" />
       <div className="flex flex-row justify-between w-full p-2">
         <p className="text-hgGray">Created by Sarah Qiao</p>
         <p className="text-hgGray">HTN FE Application 2025</p>
