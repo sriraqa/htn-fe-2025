@@ -9,8 +9,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [isMobile, setIsMobile] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+  });
 
   const handleResize = () => {
     if (window.innerWidth < 640) {
@@ -19,11 +24,6 @@ const Navbar = () => {
       setIsMobile(false);
     }
   };
-
-  //Event listener for window resize
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  });
 
   return (
     <nav className="flex flex-row items-center justify-between gap-4 max-w-6xl w-full p-4">
