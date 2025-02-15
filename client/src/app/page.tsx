@@ -19,14 +19,14 @@ export default function Events() {
   const router = useRouter();
 
   const sortedEvents = events
-    ?.sort((a, b) => a.start_time - b.start_time)
-    .filter((e) => {
+    ?.filter((e) => {
       if (!user.authenticated) {
         return e.permission !== "private";
       } else {
         return e;
       }
-    });
+    })
+    .sort((a, b) => a.start_time - b.start_time);
 
   const [showModal, setShowModal] = useState(!user.authenticated);
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
@@ -44,7 +44,11 @@ export default function Events() {
 
     events.forEach((event) => {
       const date = new Date(event.start_time);
-      const dayKey = date.toISOString().split("T")[0];
+      const dayKey = date.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
       if (!groups[dayKey]) {
         groups[dayKey] = [];
       }
