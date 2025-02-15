@@ -92,8 +92,8 @@ const Drawer = ({ onClose }: { onClose: () => void }) => {
 
   const drawerVariants = {
     visible: { x: 0 },
-    hidden: { x: 400 },
-    exit: { x: 640 },
+    hidden: { x: "100vw" },
+    exit: { x: "100vw" },
   };
 
   return (
