@@ -90,7 +90,7 @@ const EventModal = ({
       initial="closed"
       animate="open"
       exit="closed"
-      className="absolute flex justify-center items-center p-4 sm:p-10 z-30 w-full h-full top-0 left-0"
+      className="fixed flex justify-center items-center p-4 sm:p-10 z-30 w-full h-dvh top-0 left-0"
     >
       <motion.div
         variants={foregroundTransition}
@@ -128,7 +128,7 @@ const EventModal = ({
                     target="_blank"
                     className="underline flex flex-row gap-1 items-center"
                   >
-                    <p>View event</p>
+                    <p className="text-sm">View event</p>
                     <ArrowUpRight size={16} />
                   </Link>
                   {user.authenticated && event.private_url && (
@@ -137,7 +137,7 @@ const EventModal = ({
                       target="_blank"
                       className="underline flex flex-row gap-1 items-center"
                     >
-                      <p>Join event</p>
+                      <p className="text-sm">Join event</p>
                       <ArrowUpRight size={16} />
                     </Link>
                   )}
