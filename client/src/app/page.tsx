@@ -1,7 +1,7 @@
 "use client";
 
 import InfoModal from "@/components/InfoModal";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/contexts/userProvider";
 import { useEvents } from "@/hooks/useEvents";
 import EventCard from "@/components/EventCard";
@@ -11,15 +11,20 @@ import EventModal from "@/components/EventModal";
 import { TEvent } from "@/types/events";
 import { convertMSToLocalDate } from "@/utils/utils";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Events() {
   const user = useContext(UserContext);
   const { isLoading, data: events } = useEvents();
+  const router = useRouter();
+
   const sortedEvents = events
     ?.sort((a, b) => a.start_time - b.start_time)
     .filter((e) => {
       if (!user.authenticated) {
         return e.permission !== "private";
+      } else {
+        return e;
       }
     });
 
@@ -52,12 +57,16 @@ export default function Events() {
 
   const groupedEvents = groupDates(sortedEvents ?? []);
 
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   return (
     <div
       // Prevent scrolling in the background when modal is open
       // TODO: Move selectedEventId to a global state so that it stays open
       className={`${
-        selectedEventId !== null && "h-[calc(100vh-104px)] overflow-hidden"
+        selectedEventId !== null && "h-[calc(100vh-104px)] overflow-clip"
       } flex flex-col justify-center items-center`}
     >
       <AnimatePresence>
@@ -67,8 +76,13 @@ export default function Events() {
       </AnimatePresence>
 
       <main className="flex flex-col gap-8 w-full h-full">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-semibold text-center">All Events</h1>
+          <p className="text-base text-black/50 text-center">
+            View all of the upcoming events in one place!
+          </p>
+        </div>
         {showModal && <InfoModal onClose={() => setShowModal(false)} />}
-
         {groupedEvents ? (
           <div className="flex flex-col gap-6 pb-14">
             {Object.keys(groupedEvents).map((time) => {

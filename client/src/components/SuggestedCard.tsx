@@ -30,7 +30,7 @@ const SuggestedCard = ({
 
   return (
     <button
-      className={`w-full p-4 flex flex-col justify-between items-center rounded-2xl aspect-square ${
+      className={`min-w-[200px] max-w-[200px] h-[200px] p-4 flex flex-col justify-between items-center rounded-2xl aspect-square ${
         EVENT_COLORS[event.event_type]
       } text-base hover:opacity-70 transition-opacity`}
       onClick={onClick}
@@ -39,7 +39,7 @@ const SuggestedCard = ({
         <h2 className="w-full capitalize text-[16px] sm:text-[14px] text-start">
           {event.event_type.replaceAll("_", " ")}
         </h2>
-        <h1 className="w-full font-semibold text-[20px] sm:text-[16px] line-clamp-3 text-start">
+        <h1 className="w-full font-semibold text-[16px] sm:text-[14px] line-clamp-2 text-start">
           {event.name}
         </h1>
       </div>

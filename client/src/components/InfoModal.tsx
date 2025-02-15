@@ -35,7 +35,7 @@ const InfoModal = ({ onClose }: ModalProps) => {
           </Link>
         </div>
       </div>
-      <div className="hidden sm:block flex justify-end items-end max-w-[360px] px-6">
+      <div className="hidden sm:flex justify-end items-end max-w-[360px] px-6">
         <Image src={Graphic} alt="graphic" />
       </div>
     </div>

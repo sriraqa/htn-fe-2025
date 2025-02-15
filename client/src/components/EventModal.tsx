@@ -97,9 +97,9 @@ const EventModal = ({
         initial="closed"
         animate="open"
         exit="closed"
-        className="flex flex-col bg-background rounded-2xl w-full h-full max-w-3xl text-black p-4 overflow-y-scroll"
+        className="flex flex-col bg-background rounded-2xl w-full h-full max-w-3xl text-black overflow-y-scroll"
       >
-        <div className="flex w-full justify-end">
+        <div className="sm:sticky top-0 flex w-full justify-end pt-4 pr-4">
           <button
             className="flex justify-center items-center h-8 w-8 rounded-full bg-hgGray text-white active:scale-90 transition"
             onClick={onClose}
@@ -112,9 +112,9 @@ const EventModal = ({
             <BarLoader role="status" />
           </div>
         ) : event ? (
-          <div className="flex flex-col gap-6 px-4 sm:px-8">
+          <div className="flex flex-col gap-6">
             <div className="flex flex-col sm:flex-row gap-6">
-              <div className="w-full sm:w-1/3 flex flex-row items-start justify-between sm:flex-col sm:justify-start gap-4">
+              <div className="sm:sticky top-8 px-4 sm:pl-12 w-full sm:w-1/3 flex flex-row items-start justify-between sm:flex-col sm:justify-start gap-4 max-h-[200px]">
                 <div
                   className={`p-4 w-1/3 flex flex-col sm:w-full justify-center items-center rounded-2xl aspect-square ${
                     EVENT_COLORS[event.event_type]
@@ -122,27 +122,29 @@ const EventModal = ({
                 >
                   <Image src={EVENT_IMAGES[event.event_type]} alt="Image" />
                 </div>
-                <Link
-                  href={`${event.public_url}`}
-                  target="_blank"
-                  className="underline flex flex-row gap-1 items-center"
-                >
-                  <p>View event</p>
-                  <ArrowUpRight size={16} />
-                </Link>
-                {user.authenticated && event.private_url && (
+                <div className="flex flex-col gap-1">
                   <Link
-                    href={`${event.private_url}`}
+                    href={`${event.public_url}`}
                     target="_blank"
                     className="underline flex flex-row gap-1 items-center"
                   >
-                    <p>Join event</p>
+                    <p>View event</p>
                     <ArrowUpRight size={16} />
                   </Link>
-                )}
+                  {user.authenticated && event.private_url && (
+                    <Link
+                      href={`${event.private_url}`}
+                      target="_blank"
+                      className="underline flex flex-row gap-1 items-center"
+                    >
+                      <p>Join event</p>
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  )}
+                </div>
               </div>
 
-              <div className="w-full flex flex-col gap-6">
+              <div className="px-4 sm:pr-12 w-full flex flex-col gap-6">
                 <div className="w-full flex flex-col gap-0">
                   <h2 className="w-full capitalize text-[16px] text-start">
                     {event.event_type.replaceAll("_", " ")}
@@ -156,14 +158,14 @@ const EventModal = ({
                   </h2>
                 </div>
                 {event.description && (
-                  <div className="w-full flex flex-col gap-1">
+                  <div className="w-full flex flex-col gap-3">
                     <h2 className="w-full capitalize text-[20px] font-semibold text-start">
                       About
                     </h2>
                     <p>{event.description}</p>
                   </div>
                 )}
-                <div className="w-full flex flex-col gap-1 pb-4">
+                <div className="w-full flex flex-col gap-3 pb-4">
                   <h2 className="w-full capitalize text-[20px] font-semibold text-start">
                     Speakers
                   </h2>
@@ -178,11 +180,11 @@ const EventModal = ({
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-col gap-1 pb-4">
-              <h2 className="w-full capitalize text-[20px] font-semibold text-start">
+            <div className="w-full flex flex-col gap-4 pb-4">
+              <h2 className="w-full px-4 sm:px-12 capitalize text-[20px] font-semibold text-start">
                 Related Events
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="flex px-4 sm:px-12 sm:pb-6 flex-row overflow-x-scroll gap-4">
                 {event.related_events.length > 0 &&
                   event.related_events.map((relatedId) => (
                     <SuggestedCard

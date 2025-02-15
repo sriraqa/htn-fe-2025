@@ -5,12 +5,17 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 import Logo from "../../public/logo.png";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { UserContext } from "@/contexts/userProvider";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
+
+  const { authenticated, setAuthenticated } = useContext(UserContext);
+  const router = useRouter();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -23,6 +28,15 @@ const Navbar = () => {
     } else {
       setIsMobile(false);
     }
+  };
+
+  const handleAuth = () => {
+    if (!authenticated) {
+      router.push("/login");
+    } else {
+      setAuthenticated(false);
+    }
+    router.refresh();
   };
 
   return (
@@ -50,12 +64,12 @@ const Navbar = () => {
           <Link className="p-2 hover:opacity-60 text-base" href="/about">
             About
           </Link>
-          <Link
+          <button
             className="py-2 px-6 text-base text-center bg-offBlack text-white rounded-full active:scale-95 transition hover:opacity-70"
-            href="/login"
+            onClick={handleAuth}
           >
-            Log In
-          </Link>
+            {!authenticated ? "Log In" : "Sign Out"}
+          </button>
         </div>
       )}
     </nav>
@@ -63,6 +77,18 @@ const Navbar = () => {
 };
 
 const Drawer = ({ onClose }: { onClose: () => void }) => {
+  const { authenticated, setAuthenticated } = useContext(UserContext);
+  const router = useRouter();
+
+  const handleAuth = () => {
+    if (!authenticated) {
+      router.push("/login");
+    } else {
+      setAuthenticated(false);
+    }
+    router.refresh();
+  };
+
   const drawerVariants = {
     visible: { x: 0 },
     hidden: { x: 400 },
@@ -101,13 +127,12 @@ const Drawer = ({ onClose }: { onClose: () => void }) => {
         >
           About
         </Link>
-        <Link
-          className="py-2 px-6 max-w-[100px] text-center text-base bg-offBlack text-white rounded-full active:scale-95 transition hover:opacity-70"
-          href="/login"
-          onClick={onClose}
+        <button
+          className="py-2 px-6 max-w-[120px] text-center text-base bg-offBlack text-white rounded-full active:scale-95 transition hover:opacity-70"
+          onClick={handleAuth}
         >
-          Log In
-        </Link>
+          {!authenticated ? "Log In" : "Sign Out"}
+        </button>
       </div>
     </motion.div>
   );
