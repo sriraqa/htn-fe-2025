@@ -86,6 +86,7 @@ const Drawer = ({ onClose }: { onClose: () => void }) => {
     } else {
       setAuthenticated(false);
     }
+    onClose();
     router.refresh();
   };
 

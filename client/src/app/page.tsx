@@ -61,10 +61,6 @@ export default function Events() {
 
   const groupedEvents = groupDates(sortedEvents ?? []);
 
-  useEffect(() => {
-    router.refresh();
-  }, []);
-
   return (
     <div
       // Prevent scrolling in the background when modal is open

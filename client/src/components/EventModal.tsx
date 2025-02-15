@@ -114,7 +114,7 @@ const EventModal = ({
         ) : event ? (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col sm:flex-row gap-6">
-              <div className="sm:sticky top-8 px-4 sm:pl-12 w-full sm:w-1/3 flex flex-row items-start justify-between sm:flex-col sm:justify-start gap-4 max-h-[200px]">
+              <div className="sm:sticky top-8 px-8 sm:pl-12 w-full sm:w-1/3 flex flex-row items-end justify-between sm:flex-col sm:items-start sm:justify-start gap-4 max-h-[200px]">
                 <div
                   className={`p-4 w-1/3 flex flex-col sm:w-full justify-center items-center rounded-2xl aspect-square ${
                     EVENT_COLORS[event.event_type]
@@ -144,7 +144,7 @@ const EventModal = ({
                 </div>
               </div>
 
-              <div className="px-4 sm:pr-12 w-full flex flex-col gap-6">
+              <div className="px-8 sm:pr-12 w-full flex flex-col gap-6">
                 <div className="w-full flex flex-col gap-0">
                   <h2 className="w-full capitalize text-[16px] text-start">
                     {event.event_type.replaceAll("_", " ")}
@@ -181,10 +181,10 @@ const EventModal = ({
               </div>
             </div>
             <div className="w-full flex flex-col gap-4 pb-4">
-              <h2 className="w-full px-4 sm:px-12 capitalize text-[20px] font-semibold text-start">
+              <h2 className="w-full px-8 sm:px-12 capitalize text-[20px] font-semibold text-start">
                 Related Events
               </h2>
-              <div className="flex px-4 sm:px-12 sm:pb-6 flex-row overflow-x-scroll gap-4">
+              <div className="flex px-8 sm:px-12 sm:pb-6 flex-row overflow-x-scroll gap-4">
                 {event.related_events.length > 0 &&
                   event.related_events.map((relatedId) => (
                     <SuggestedCard
